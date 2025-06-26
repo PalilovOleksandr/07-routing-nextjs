@@ -14,3 +14,8 @@ export interface CreateNote {
   content: string;
   tag: Tags;
 }
+
+export interface NotesHttpResponse {
+  notes: Note[];
+  totalPages: number | undefined;
+}
