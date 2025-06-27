@@ -9,9 +9,9 @@ const NotFound = () => {
         <p className={css.description}>
           Sorry, the page you are looking for does not exist.
         </p>
-        <button>
-          <Link href="/">Go back home</Link>
-        </button>
+        <Link href="/" className={css.buttonLink}>
+          Go back home
+        </Link>
       </div>
     </section>
   );

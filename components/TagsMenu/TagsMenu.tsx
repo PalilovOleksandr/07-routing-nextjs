@@ -11,7 +11,11 @@ const TagsMenu = ({ tags }: TagsProps) => {
 
   return (
     <div className={css.menuContainer}>
-      <button onClick={toggle} className={css.menuButton}>
+      <button
+        onClick={toggle}
+        className={css.menuButton}
+        aria-label={isOpenMenu ? 'Close notes menu' : 'Open notes menu'}
+      >
         Notes ▾
       </button>
       {isOpenMenu && (
@@ -21,12 +25,21 @@ const TagsMenu = ({ tags }: TagsProps) => {
               href={`/notes/filter/all`}
               className={css.menuLink}
               onClick={toggle}
+              aria-expanded={isOpenMenu}
+              aria-haspopup="true"
+              aria-label="View all notes"
+              role="menuitem"
             >
               All Notes
             </Link>
           </li>
-          {tags.map((tag, id) => (
-            <li key={id} className={css.menuItem}>
+          {tags.map(tag => (
+            <li
+              key={tag}
+              className={css.menuItem}
+              aria-label={`View notes tagged with ${tag}`}
+              role="menuitem"
+            >
               <Link
                 href={`/notes/filter/${tag}`}
                 className={css.menuLink}

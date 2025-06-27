@@ -21,7 +21,13 @@ const Notes = async ({ params }: NotesProps) => {
 
   await queryClient.prefetchQuery({
     queryKey: ['notes', initialQuery, initialPage, initialPerPage, tag],
-    queryFn: () => fetchNotes(initialQuery, initialPage, initialPerPage, tag),
+    queryFn: () =>
+      fetchNotes({
+        page: initialPage,
+        perPage: initialPerPage,
+        searchQuery: initialQuery,
+        tag,
+      }),
   });
 
   const initialData = queryClient.getQueryData([

@@ -24,7 +24,7 @@ const NotesClient = ({
   query,
   page,
   initialData,
-  perPage = 12,
+  perPage,
   tag,
 }: NoteClientProps) => {
   const [currentPage, setCurrentPage] = useState<number>(page);
@@ -34,7 +34,13 @@ const NotesClient = ({
 
   const { data, error, isError } = useQuery({
     queryKey: ['notes', debouncedQuery, currentPage, perPage, tag],
-    queryFn: () => fetchNotes(debouncedQuery, currentPage, perPage, tag),
+    queryFn: () =>
+      fetchNotes({
+        page: currentPage,
+        perPage,
+        searchQuery: debouncedQuery,
+        tag,
+      }),
     placeholderData: keepPreviousData,
     initialData: () => {
       if (debouncedQuery === query && currentPage === page) {

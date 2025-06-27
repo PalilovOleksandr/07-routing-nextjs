@@ -11,12 +11,19 @@ if (!myKey) {
 axios.defaults.baseURL = 'https://notehub-public.goit.study/api';
 axios.defaults.headers.common['Authorization'] = `Bearer ${myKey}`;
 
-export const fetchNotes = async (
-  searchQuery: string,
-  page: number,
-  perPage: number = 12,
-  tag: string
-): Promise<NotesHttpResponse> => {
+interface fetchNotesProps {
+  page: number;
+  perPage: number;
+  searchQuery?: string;
+  tag?: string;
+}
+
+export const fetchNotes = async ({
+  page,
+  perPage = 12,
+  searchQuery,
+  tag,
+}: fetchNotesProps): Promise<NotesHttpResponse> => {
   try {
     const { data } = await axios.get<NotesHttpResponse>('/notes', {
       params: {

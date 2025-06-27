@@ -1,17 +1,35 @@
 'use client';
 
 import Modal from '@/components/Modal/Modal';
-import { Note } from '@/types/note';
 import css from './NotePreview.module.css';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
+import { fetchNoteById } from '@/lib/api';
+import Loader from '@/components/Loader/Loader';
 
-type NotePreviewProps = {
-  note: Note;
-};
-
-const NotePreviewClient = ({ note }: NotePreviewProps) => {
+const NotePreviewClient = () => {
   const router = useRouter();
   const closeModal = () => router.back();
+  const { id } = useParams<{ id: string }>();
+  const parseId = Number(id);
+
+  const {
+    data: note,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ['note', parseId],
+    queryFn: () => fetchNoteById(parseId),
+    refetchOnMount: false,
+  });
+  if (isLoading)
+    return (
+      <div className={css.backdrop}>
+        <Loader />
+      </div>
+    );
+  if (error) return <p>Something went wrong.</p>;
+  if (!note) return <p>Sorry, note not found.</p>;
 
   const formattedDate = note.updatedAt
     ? `Updated at: ${note.updatedAt}`
