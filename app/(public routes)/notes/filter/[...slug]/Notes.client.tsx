@@ -1,7 +1,6 @@
 'use client';
 
 import NoteList from '@/components/NoteList/NoteList';
-import NoteModal from '@/components/NoteModal/NoteModal';
 import Pagination from '@/components/Pagination/Pagination';
 import SearchBox from '@/components/SearchBox/SearchBox';
 import { fetchNotes } from '@/lib/api';
@@ -10,6 +9,8 @@ import { useEffect, useState } from 'react';
 import css from './page.module.css';
 import { useDebounce } from 'use-debounce';
 import { NotesHttpResponse } from '@/types/note';
+import Modal from '@/components/Modal/Modal';
+import NoteForm from '@/components/NoteForm/NoteForm';
 
 type NoteClientProps = {
   query: string;
@@ -79,7 +80,11 @@ const NotesClient = ({
         </button>
       </header>
       {data && data.notes.length > 0 && <NoteList notes={data.notes} />}
-      {isModalOpen && <NoteModal onClose={closeModal} />}
+      {isModalOpen && (
+        <Modal onClose={closeModal}>
+          <NoteForm onClose={closeModal} />
+        </Modal>
+      )}
     </div>
   );
 };

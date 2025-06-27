@@ -1,15 +1,11 @@
 'use client';
 
-import { Tags } from '@/types/note';
 import css from './TagsMenu.module.css';
 import { useState } from 'react';
 import Link from 'next/link';
+import { TagsProps } from '@/types/note';
 
-type Props = {
-  tags: Tags[];
-};
-
-const TagsMenu = ({ tags }: Props) => {
+const TagsMenu = ({ tags }: TagsProps) => {
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
   const toggle = () => setIsOpenMenu(!isOpenMenu);
 
@@ -21,13 +17,21 @@ const TagsMenu = ({ tags }: Props) => {
       {isOpenMenu && (
         <ul className={css.menuList}>
           <li className={css.menuItem}>
-            <Link href={`/notes/filter/all`} className={css.menuLink}>
+            <Link
+              href={`/notes/filter/all`}
+              className={css.menuLink}
+              onClick={toggle}
+            >
               All Notes
             </Link>
           </li>
           {tags.map((tag, id) => (
             <li key={id} className={css.menuItem}>
-              <Link href={`/notes/filter/${tag}`} className={css.menuLink}>
+              <Link
+                href={`/notes/filter/${tag}`}
+                className={css.menuLink}
+                onClick={toggle}
+              >
                 {tag}
               </Link>
             </li>

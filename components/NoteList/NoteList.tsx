@@ -30,7 +30,7 @@ export default function NoteList({ notes }: NoteListProps) {
     mutate(id);
   };
   return (
-    <>
+    <section>
       {isError && (
         <ErrorMessage text="There was an error, please try again..." />
       )}
@@ -56,6 +56,6 @@ export default function NoteList({ notes }: NoteListProps) {
           </li>
         ))}
       </ul>
-    </>
+    </section>
   );
 }

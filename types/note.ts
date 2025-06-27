@@ -19,3 +19,7 @@ export interface NotesHttpResponse {
   notes: Note[];
   totalPages: number | undefined;
 }
+
+export interface TagsProps {
+  tags: Tags[];
+}
