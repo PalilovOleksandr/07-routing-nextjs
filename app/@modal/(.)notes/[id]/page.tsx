@@ -29,3 +29,4 @@ const NotePreview = async ({ params }: Props) => {
 };
 
 export default NotePreview;
+export const dynamic = 'force-dynamic';
